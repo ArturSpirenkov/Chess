@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 interface Props {
   cell: Cell,
-  isFocused: Boolean
+  isFocused: boolean
 }
 
 const props = defineProps<Props>()
@@ -22,7 +22,11 @@ const style = ref({
   <div 
     :class="[style.cell, style.color, {selected: isFocused}]"  
     @click="emit('change', props.cell)" 
+    :style="{background: props.cell.available && props.cell.figure ? 'green' : '' }"
   >
+    <template v-if="props.cell.available && !props.cell.figure">
+      <div class="available" />
+    </template>
     <template v-if="props.cell.figure?.logo">
         <img :src="props.cell.figure?.logo">  
     </template>

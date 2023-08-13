@@ -3,7 +3,7 @@ import BoardComponent from './components/BoardComponent.vue';
 import { Board } from './models/Board';
 import { ref, onMounted}from 'vue';
 
-const board = ref<Board>('')
+const board = ref<Board | null>(new Board())
 
 const restart = () => {
   const newBoard = new Board()
@@ -14,11 +14,17 @@ const restart = () => {
 onMounted(() => {
   restart()
 })
+
+const refreshBoard = (e: Board) => {
+  board.value = e
+}
 </script>
 
 <template>
   <div class="app">
-    <BoardComponent :board="board"/>
+    <BoardComponent
+      :board="board"
+      @update-board="refreshBoard"/>
   </div>
 </template>
 

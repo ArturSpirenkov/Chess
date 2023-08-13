@@ -4,19 +4,38 @@ import { Board } from '@/models/Board';
 import { ref } from "vue";
 import { Cell } from '@/models/Cell';
 
-const focus = ref(false)
-const cellTarget = ref<null | Cell>()
+const cellTarget = ref<null | Cell>(null)
 
 interface Props {
   board: Board 
 }
 
 const props = defineProps<Props>()
+const emit = defineEmits<{
+  updateBoard: [board: Board]
+}>()
 
-const selectedCell = (cell: Cell) => {
+
+const selectedCell = (cell: Cell): void => {
   if(cell) {
     cellTarget.value = cell
   }
+}
+
+const highlightCells = () => {
+  props.board.highlightCells(cellTarget.value as Cell)
+  return updateBoard()
+}
+
+const updateBoard = () => {
+  emit('updateBoard', props.board.getCopyBoard())
+}
+
+const focusCell = (cell: Cell): boolean => {
+  if (!cell.figure) {
+    return false
+  }
+  return cellTarget.value?.x === cell.x && cellTarget.value?.y === cell.y
 }
 </script>
 
@@ -24,10 +43,11 @@ const selectedCell = (cell: Cell) => {
   <div class="board">
    <template v-for="item in props.board!.cells">
       <CellComponent 
+        @click="highlightCells"
         v-for="cell in item" 
         :key="cell.id" 
         :cell="cell" 
-        :isFocused="cellTarget?.x === cell.x && cellTarget?.y === cell.y"
+        :isFocused="focusCell(cell)"
         @change="selectedCell"
       />
    </template>
