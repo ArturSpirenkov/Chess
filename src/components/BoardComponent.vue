@@ -3,11 +3,14 @@ import CellComponent from './CellComponent.vue';
 import { Board } from '@/models/Board';
 import { ref } from "vue";
 import { Cell } from '@/models/Cell';
+import type { Player } from '@/models/Player';
 
 const cellTarget = ref<null | Cell>(null)
 
 interface Props {
   board: Board 
+  currentPlayer: Player | null
+  swapPlayer: () => void
 }
 
 const props = defineProps<Props>()
@@ -16,10 +19,16 @@ const emit = defineEmits<{
 }>()
 
 
-const selectedCell = (cell: Cell): void => {
-  if(cell) {
-    cellTarget.value = cell
-  }
+const selectCell = (cell: Cell): void => {
+  // can the selected figure move to selected cell
+  if (cellTarget.value && cellTarget.value !== cell && cellTarget.value.figure?.canMove(cell)) {
+    cellTarget.value.moveFigure(cell)
+    cellTarget.value = null
+    props.swapPlayer()
+  } else {
+    if (cell.figure?.color === props.currentPlayer?.color)
+      cellTarget.value = cell
+   }
 }
 
 const highlightCells = () => {
@@ -36,21 +45,24 @@ const focusCell = (cell: Cell): boolean => {
     return false
   }
   return cellTarget.value?.x === cell.x && cellTarget.value?.y === cell.y
-}
+} 
 </script>
 
 <template>
-  <div class="board">
-   <template v-for="item in props.board!.cells">
-      <CellComponent 
-        @click="highlightCells"
-        v-for="cell in item" 
-        :key="cell.id" 
-        :cell="cell" 
-        :isFocused="focusCell(cell)"
-        @change="selectedCell"
-      />
-   </template>
+  <div>
+    <h3> Current player  {{ currentPlayer?.color }}</h3>
+    <div class="board">
+      <template v-for="item in props.board!.cells">
+        <CellComponent 
+          @click="highlightCells"
+          v-for="cell in item" 
+          :key="cell.id" 
+          :cell="cell" 
+          :isFocused="focusCell(cell)"
+          @change="selectCell"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
