@@ -6,6 +6,7 @@ import { Colors } from './models/Colors'
 import { ref, onMounted}from 'vue'
 import LostFigures from './components/LostFigures.vue'
 import type { Figure } from './models/figures/figure'
+import TimerComponent from './components/TimerComponent.vue'
 
 const board = ref<Board | null>(new Board())
 const whitePlayer = ref(new Player(Colors.WHITE))
@@ -35,6 +36,10 @@ onMounted(() => {
 
 <template>
   <div class="app">
+    <TimerComponent
+      :restart="restart"
+      :current-player="currentPlayer"
+    />
     <BoardComponent
       :board="(board as Board)"
       @update-board="refreshBoard"
