@@ -36,63 +36,69 @@ onMounted(() => {
 
 <template>
   <div class="app">
-    <div>
-      <TimerComponent
-        :restart="restart"
-        :current-player="currentPlayer"
-      />
-    </div>
-    <div class="board">
-      <BoardComponent
-        :board="(board as Board)"
-        @update-board="refreshBoard"
-        :currentPlayer="currentPlayer"
-        :swapPlayer="swapPlayer"
-       />
-    </div>
-    <div>
-      <LostFigures 
-        :title="Colors.BLACK"
-        :figures="(board!.lostBlackFigures as Figure[])"
-      />
-      <LostFigures 
-        :title="Colors.WHITE"
-        :figures="(board!.lostWhiteFigures as Figure[])"
-      />
-    </div>
+      <div class="timer"> 
+        <TimerComponent
+          :restart="restart"
+          :current-player="currentPlayer"
+        />
+      </div>
+      <div class="board">
+        <BoardComponent
+          :board="(board as Board)"
+          @update-board="refreshBoard"
+          :currentPlayer="currentPlayer"
+          :swapPlayer="swapPlayer"
+        />
+      </div>
+      <div class="figure">
+        <LostFigures 
+          :title="Colors.BLACK"
+          :figures="(board!.lostBlackFigures as Figure[])"
+        />
+        <LostFigures 
+          :title="Colors.WHITE"
+          :figures="(board!.lostWhiteFigures as Figure[])"
+        />
+      </div>
   </div>
 </template>
 
 <style lang="scss">
-body{
-  margin: 0;
-  padding: 0;
-}
-
 * {
   box-sizing: border-box;
 }
 
-.board {
-  justify-items: center;
-  align-items: center;
+body{
+  margin: 0;
+  padding: 0;
+  background: rgba(189, 162, 124, 1.0);
+  background: linear-gradient(225deg, rgba(189, 162, 124, 1.0), rgba(26, 116, 173, 1.0));
 }
 
 .app {
   width: 100vw;
   height: 100vh;
-  background-color: antiquewhite;
-  background: rgba(189, 162, 124, 1.0);
-  background: linear-gradient(225deg, rgba(189, 162, 124, 1.0), rgba(26, 116, 173, 1.0));
-  display: grid;
   grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  & > *:nth-child(2) {
-  grid-column: 2;
-  justify-self: center;
-  align-self: center;
-  }
+  justify-content: space-between;
 }
 
+.timer {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  height: 512px;
+}
+
+.figure {
+  flex-basis: 50%;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

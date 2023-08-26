@@ -19,6 +19,6 @@ const props = defineProps<LostFiguresProps>()
   </div>
 </template>
 
-<style lang="scss"> 
+<style lang="scss" scoped> 
 
 </style>

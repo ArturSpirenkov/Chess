@@ -41,7 +41,7 @@ const computedLetter = computed(() => {
   <div 
     :class="[style.cell, style.color, {selected: isFocused}]"  
     @click="emit('change', props.cell)" 
-    :style="{background: props.cell.available && props.cell.figure ? 'green' : '' }"
+    :style="{background: props.cell.available && props.cell.figure ? '#9d9f10' : '' }"
   >
     <template v-if="props.cell.available && !props.cell.figure">
       <div class="available"/>
@@ -58,7 +58,7 @@ const computedLetter = computed(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .cell {
     height: 64px;
     width: 64px;
@@ -93,13 +93,13 @@ const computedLetter = computed(() => {
   }
 
   .selected {
-    background-color: rgb(163, 41, 41);
+    background-color: #78ADCE;
   }
 
   .available {
     height: 12px;
     width: 12px;
     border-radius: 50%;
-    background-color: rgb(55, 175, 55);
+    background-color: #9d9f10;
   }
 </style>

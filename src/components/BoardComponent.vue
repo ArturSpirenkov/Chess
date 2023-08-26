@@ -50,9 +50,7 @@ const focusCell = (cell: Cell): boolean => {
 </script>
 
 <template>
-    <h3> Current player  {{ currentPlayer?.color }}</h3>
-  <div style="padding: 10px; background-color: #3B6674">
-    <div class="wrapper">
+      <h3> Current player  {{ currentPlayer?.color }}</h3>
       <div class="board">
         <template v-for="item in props.board!.cells">
           <CellComponent 
@@ -65,20 +63,29 @@ const focusCell = (cell: Cell): boolean => {
           />
         </template>
       </div>
-    </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
   .board {
+    user-select: none;
+    box-sizing: content-box;
+    border: solid 3px #4F7C8A;
     width: calc(64px * 8);
     height: calc(64px * 8);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-  }
-
-  .wrapper {
-    border: solid 3px #4F7C8A;
+    position: relative;
+    &::after {
+      z-index: -10000;
+      width: 100%;
+      height: 100%;
+      padding: 13px;
+      content: '';
+      position: absolute;
+      top: -13px;
+      left: -13px;
+      background-color: #3B6674;
+    }
   }
 </style>
