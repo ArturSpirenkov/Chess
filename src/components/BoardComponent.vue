@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import CellComponent from './CellComponent.vue';
 import { Board } from '@/models/Board';
-import { ref } from "vue";
+import { ref } from 'vue';
 import { Cell } from '@/models/Cell';
 import type { Player } from '@/models/Player';
 
 const cellTarget = ref<null | Cell>(null)
 
-interface Props {
+interface BoardProps {
   board: Board 
   currentPlayer: Player | null
   swapPlayer: () => void
 }
 
-const props = defineProps<Props>()
+const props = defineProps<BoardProps>()
 const emit = defineEmits<{
   updateBoard: [board: Board]
 }>()
@@ -46,32 +46,39 @@ const focusCell = (cell: Cell): boolean => {
   }
   return cellTarget.value?.x === cell.x && cellTarget.value?.y === cell.y
 } 
+
 </script>
 
 <template>
-  <div>
     <h3> Current player  {{ currentPlayer?.color }}</h3>
-    <div class="board">
-      <template v-for="item in props.board!.cells">
-        <CellComponent 
-          @click="highlightCells"
-          v-for="cell in item" 
-          :key="cell.id" 
-          :cell="cell" 
-          :isFocused="focusCell(cell)"
-          @change="selectCell"
-        />
-      </template>
+  <div style="padding: 10px; background-color: #3B6674">
+    <div class="wrapper">
+      <div class="board">
+        <template v-for="item in props.board!.cells">
+          <CellComponent 
+            @click="highlightCells"
+            v-for="cell in item" 
+            :key="cell.id" 
+            :cell="cell" 
+            :isFocused="focusCell(cell)"
+            @change="selectCell"
+          />
+        </template>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .board {
     width: calc(64px * 8);
     height: calc(64px * 8);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .wrapper {
+    border: solid 3px #4F7C8A;
   }
 </style>

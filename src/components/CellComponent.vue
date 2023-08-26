@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Cell } from '@/models/Cell';
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-interface Props {
+interface CellProps {
   cell: Cell,
   isFocused: boolean
 }
 
-const props = defineProps<Props>()
+const props = defineProps<CellProps>()
 const emit = defineEmits<{
   change: [cell: Cell]
 }>()
@@ -15,6 +15,25 @@ const emit = defineEmits<{
 const style = ref({
   cell: 'cell',
   color: props.cell.color,
+})
+
+const axisNumbers = computed(() => {
+  return props.cell.x == 0 ? true : false
+})
+
+const axisLetters = computed(() => {
+  return props.cell.y == 7 ? true : false
+  
+})
+
+const computedNumber = computed(() => {
+  //checking the number of cells by Y in instance Board
+  let numberСellsY = props.cell.board.cells.length 
+  return props.cell.x == 0 ?  numberСellsY - props.cell.y:  1
+})
+const computedLetter = computed(() => {
+  let charUTF = 97
+  return props.cell.y == 7 ? String.fromCharCode(charUTF + props.cell.x)  : null
 })
 </script>
 
@@ -25,10 +44,16 @@ const style = ref({
     :style="{background: props.cell.available && props.cell.figure ? 'green' : '' }"
   >
     <template v-if="props.cell.available && !props.cell.figure">
-      <div class="available" />
+      <div class="available"/>
     </template>
     <template v-if="props.cell.figure?.logo">
         <img :src="props.cell.figure?.logo">  
+    </template>
+    <template v-if="axisNumbers">
+      <span class="cell__num">{{ computedNumber }}</span>
+    </template>
+    <template v-if="axisLetters">
+      <span class="cell__letter">{{ computedLetter }}</span>
     </template>
   </div>
 </template>
@@ -40,18 +65,31 @@ const style = ref({
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     & img {
       width: 48px;
       height: 48px;
       position: relative;
     }
+    &__num {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+    }
+    &__letter {
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+    }
   }
   .white {
-    background-color: rgb(120, 54, 123);
+    background-color: #3D6977;
+    color:  #91B7C5;
   }
 
   .black {
-    background-color: rgb(0, 238, 238);
+    background-color: #91B7C5;
+    color: #3D6977;
   }
 
   .selected {

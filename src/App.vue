@@ -36,16 +36,20 @@ onMounted(() => {
 
 <template>
   <div class="app">
-    <TimerComponent
-      :restart="restart"
-      :current-player="currentPlayer"
-    />
-    <BoardComponent
-      :board="(board as Board)"
-      @update-board="refreshBoard"
-      :currentPlayer="currentPlayer"
-      :swapPlayer="swapPlayer"
-    />
+    <div>
+      <TimerComponent
+        :restart="restart"
+        :current-player="currentPlayer"
+      />
+    </div>
+    <div class="board">
+      <BoardComponent
+        :board="(board as Board)"
+        @update-board="refreshBoard"
+        :currentPlayer="currentPlayer"
+        :swapPlayer="swapPlayer"
+       />
+    </div>
     <div>
       <LostFigures 
         :title="Colors.BLACK"
@@ -64,12 +68,31 @@ body{
   margin: 0;
   padding: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+.board {
+  justify-items: center;
+  align-items: center;
+}
+
 .app {
   width: 100vw;
   height: 100vh;
   background-color: antiquewhite;
-  display: flex;
+  background: rgba(189, 162, 124, 1.0);
+  background: linear-gradient(225deg, rgba(189, 162, 124, 1.0), rgba(26, 116, 173, 1.0));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   align-items: center;
+  & > *:nth-child(2) {
+  grid-column: 2;
+  justify-self: center;
+  align-self: center;
+  }
 }
+
 </style>
