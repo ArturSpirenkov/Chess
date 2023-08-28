@@ -20,7 +20,6 @@ const emit = defineEmits<{
 
 
 const selectCell = (cell: Cell): void => {
-  // can the selected figure move to selected cell
   if (cellTarget.value && cellTarget.value !== cell && cellTarget.value.figure?.canMove(cell)) {
     cellTarget.value.moveFigure(cell)
     cellTarget.value = null
@@ -76,16 +75,25 @@ const focusCell = (cell: Cell): boolean => {
     flex-direction: row;
     flex-wrap: wrap;
     position: relative;
-    &::after {
-      z-index: -10000;
-      width: 100%;
-      height: 100%;
-      padding: 13px;
+    margin: 10px;
+    box-shadow: 0px 0px 0px 10px #3B6674;
+    z-index: 1;
+    &::before {
+      box-shadow: -3px 3px 5px #78ADCE;
       content: '';
+      width: 100%;
       position: absolute;
-      top: -13px;
-      left: -13px;
-      background-color: #3B6674;
+      inset: 0;
+      height: 100%;
+      z-index: -10000
+    }
+    &::after {
+      box-shadow: 3px -3px 5px #ad863c;
+      content: '';
+      width: 100%;
+      position: absolute;
+      inset: 0;
+      z-index: -10000
     }
   }
 </style>

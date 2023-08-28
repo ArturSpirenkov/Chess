@@ -6,7 +6,7 @@ import { Colors } from './models/Colors'
 import { ref, onMounted}from 'vue'
 import LostFigures from './components/LostFigures.vue'
 import type { Figure } from './models/figures/figure'
-import TimerComponent from './components/TimerComponent.vue'
+import PlayerBoard from './components/PlayerBoard.vue'
 
 const board = ref<Board | null>(new Board())
 const whitePlayer = ref(new Player(Colors.WHITE))
@@ -37,12 +37,12 @@ onMounted(() => {
 <template>
   <div class="app">
       <div class="timer"> 
-        <TimerComponent
+        <PlayerBoard
           :restart="restart"
           :current-player="currentPlayer"
         />
       </div>
-      <div class="board">
+      <div class="main-board">
         <BoardComponent
           :board="(board as Board)"
           @update-board="refreshBoard"
@@ -82,9 +82,12 @@ body{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
 }
 
+
+.main-board {
+  margin: 30px;
+}
 .timer {
   flex-basis: 50%;
   display: flex;
