@@ -36,28 +36,29 @@ onMounted(() => {
 
 <template>
   <div class="app">
-      <div class="timer"> 
         <PlayerBoard
           :restart="restart"
           :current-player="currentPlayer"
+          class="players"
         />
-      </div>
-      <div class="main-board">
         <BoardComponent
           :board="(board as Board)"
           @update-board="refreshBoard"
           :currentPlayer="currentPlayer"
           :swapPlayer="swapPlayer"
         />
-      </div>
-      <div class="figure">
+      <div class="figure-lost">
         <LostFigures 
-          :title="Colors.BLACK"
-          :figures="(board!.lostBlackFigures as Figure[])"
-        />
-        <LostFigures 
+          class="figure-lost__white"
+          :target="currentPlayer?.color === Colors.WHITE ? true : false"
           :title="Colors.WHITE"
           :figures="(board!.lostWhiteFigures as Figure[])"
+        />
+        <LostFigures
+          class="figure-lost__black"
+          :target="currentPlayer?.color === Colors.BLACK ? true : false"
+          :title="Colors.BLACK"
+          :figures="(board!.lostBlackFigures as Figure[])"
         />
       </div>
   </div>
@@ -67,14 +68,12 @@ onMounted(() => {
 * {
   box-sizing: border-box;
 }
-
 body{
   margin: 0;
   padding: 0;
   background: rgba(189, 162, 124, 1.0);
   background: linear-gradient(225deg, rgba(189, 162, 124, 1.0), rgba(26, 116, 173, 1.0));
 }
-
 .app {
   width: 100vw;
   height: 100vh;
@@ -83,25 +82,43 @@ body{
   flex-direction: row;
   align-items: center;
 }
-
-
 .main-board {
   margin: 30px;
+  flex-basis: 100%;
+  
 }
-.timer {
+.players {
   flex-basis: 50%;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   margin: 10px;
-  height: 512px;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 10px;
 }
+.figure-lost {
+  flex-basis: 50%;
+  margin: 10px;
+  display: flex;
+  height: 70vh;
+  overflow: hidden;
+  justify-content: start;
+  align-items: center;
 
-.figure {
-  flex-basis: 50%;
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  &__black {
+    min-width: 125px;
+    max-width: 250px;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+  &__white {
+    min-width: 125px;
+    max-width: 250px;
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
