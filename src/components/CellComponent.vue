@@ -83,19 +83,18 @@ const computedLetter = computed(() => {
     }
   }
   .white {
-    background-color: #3D6977;
-    color:  #91B7C5;
-  }
-
-  .black {
     background-color: #91B7C5;
+    
     color: #3D6977;
   }
-
+  .black {
+    background-color: #3D6977;
+    color:  #91B7C5;
+    
+  }
   .selected {
     background-color: #78ADCE;
   }
-
   .available {
     height: 12px;
     width: 12px;

@@ -49,19 +49,19 @@ const focusCell = (cell: Cell): boolean => {
 </script>
 
 <template>
-      <h3> Current player  {{ currentPlayer?.color }}</h3>
-      <div class="board">
-        <template v-for="item in props.board!.cells">
-          <CellComponent 
-            @click="highlightCells"
-            v-for="cell in item" 
-            :key="cell.id" 
-            :cell="cell" 
-            :isFocused="focusCell(cell)"
-            @change="selectCell"
-          />
-        </template>
-      </div>
+  <!-- <h3> Current player  {{ currentPlayer?.color }}</h3> -->
+  <div class="board">
+    <template v-for="item in props.board!.cells">
+      <CellComponent 
+        @click="highlightCells"
+        v-for="cell in item" 
+        :key="cell.id" 
+        :cell="cell" 
+        :isFocused="focusCell(cell)"
+        @change="selectCell"
+      />
+    </template>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -69,7 +69,8 @@ const focusCell = (cell: Cell): boolean => {
     user-select: none;
     box-sizing: content-box;
     border: solid 3px #4F7C8A;
-    width: calc(64px * 8);
+    min-width: calc(64px * 8);
+    max-width: calc(64px * 8);
     height: calc(64px * 8);
     display: flex;
     flex-direction: row;
