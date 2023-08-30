@@ -39,28 +39,34 @@ const handleRestart = () => {
   </div>
 </template>
 <style lang="scss">
-@import '../assets/styles/mixin.scss';
+@import '@/assets/styles';
 
 .player-board {
-  color: azure;
-  width: 70%;
+  color: $color-white;
   height: 650px;
+  width: 250px;
   display: flex;
   flex-direction: column;
-  max-width: 250px;
   position: relative;
   font-size: 30px;
-
+  @include media("max", "lg") {
+    flex-direction: row;
+    height: 100px;
+    width: 537px;
+  }
+  @include media("max", "sm") {
+    height: 50px;
+    width: 360px;
+    font-size: 20px;
+  }
+  
   &__white-player {
     @include player;
-    border-radius: 0 0 10px 10px;
   }
   &__black-player {
     @include player;
-    border-radius: 10px 10px 0 0;
   }
 }
-
 .restart-time {
   width: 70px;
   height: 70px;
@@ -69,17 +75,29 @@ const handleRestart = () => {
   top: calc(50% - 35px);
   left: calc(50% - 35px);
   rotate: 45deg;
-  border-radius: 7px;
+  border-radius: 10px;
   box-shadow: 3px 3px 6px #7e8c93;
   cursor: pointer;
+  @include media("max", "sm") {
+    height: 35px;
+    width: 35px;
+    top: calc(50% - 17.5px);
+    left: calc(50% - 17.5px);
+  }
   &__btn {
     background: none;
     border: none;
     height: 100%;
     rotate: -45deg;
-    color: aliceblue;
+    color: $color-white;
     font-size: 16px;
     font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include media("max", "sm") {
+      font-size: 8px;
+    }
   }
 }
 .white-player {

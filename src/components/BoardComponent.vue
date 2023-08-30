@@ -18,7 +18,6 @@ const emit = defineEmits<{
   updateBoard: [board: Board]
 }>()
 
-
 const selectCell = (cell: Cell): void => {
   if (cellTarget.value && cellTarget.value !== cell && cellTarget.value.figure?.canMove(cell)) {
     cellTarget.value.moveFigure(cell)
@@ -65,13 +64,14 @@ const focusCell = (cell: Cell): boolean => {
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/styles';
+
   .board {
     user-select: none;
     box-sizing: content-box;
     border: solid 3px #4F7C8A;
     min-width: calc(64px * 8);
     max-width: calc(64px * 8);
-    height: calc(64px * 8);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -79,6 +79,10 @@ const focusCell = (cell: Cell): boolean => {
     margin: 10px;
     box-shadow: 0px 0px 0px 10px #3B6674;
     z-index: 1;
+    @include media("max", "sm") {
+      min-width: calc(42px * 8);
+      max-width: calc(42px * 8);
+    }
     &::before {
       box-shadow: -3px 3px 5px #78ADCE;
       content: '';

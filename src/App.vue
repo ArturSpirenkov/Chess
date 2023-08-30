@@ -36,87 +36,76 @@ onMounted(() => {
 
 <template>
   <div class="app">
-        <PlayerBoard
-          :restart="restart"
-          :current-player="currentPlayer"
-          class="players"
-        />
-        <BoardComponent
-          :board="(board as Board)"
-          @update-board="refreshBoard"
-          :currentPlayer="currentPlayer"
-          :swapPlayer="swapPlayer"
-        />
-      <div class="figure-lost">
-        <LostFigures 
-          class="figure-lost__white"
-          :target="currentPlayer?.color === Colors.WHITE ? true : false"
-          :title="Colors.WHITE"
-          :figures="(board!.lostWhiteFigures as Figure[])"
-        />
-        <LostFigures
-          class="figure-lost__black"
-          :target="currentPlayer?.color === Colors.BLACK ? true : false"
-          :title="Colors.BLACK"
-          :figures="(board!.lostBlackFigures as Figure[])"
-        />
-      </div>
+    <PlayerBoard
+      :restart="restart"
+      :current-player="currentPlayer"
+      class="players"
+    />
+    <div class="main-board">
+      <BoardComponent
+      :board="(board as Board)"
+      @update-board="refreshBoard"
+      :currentPlayer="currentPlayer"
+      :swapPlayer="swapPlayer"
+    />
+    </div>
+  <div class="figure-lost">
+    <LostFigures 
+      class="figure-lost__white"
+      :target="currentPlayer?.color === Colors.WHITE ? true : false"
+      :title="Colors.WHITE"
+      :figures="(board!.lostWhiteFigures as Figure[])"
+    />
+    <LostFigures
+      class="figure-lost__black"
+      :target="currentPlayer?.color === Colors.BLACK ? true : false"
+      :title="Colors.BLACK"
+      :figures="(board!.lostBlackFigures as Figure[])"
+    />
+  </div>
   </div>
 </template>
 
 <style lang="scss">
-* {
-  box-sizing: border-box;
-}
+@import '@/assets/styles';
+
 body{
-  margin: 0;
-  padding: 0;
   background: rgba(189, 162, 124, 1.0);
   background: linear-gradient(225deg, rgba(189, 162, 124, 1.0), rgba(26, 116, 173, 1.0));
 }
 .app {
-  width: 100vw;
-  height: 100vh;
-  grid-template-columns: repeat(3, 1fr);
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  @include media("max", "lg") {
+    flex-direction: column;
+  }
 }
 .main-board {
-  margin: 30px;
-  flex-basis: 100%;
-  
+  background-color: azure;
+  display: flex;
+  justify-content: center;
+  margin: 0.5vw;
 }
 .players {
-  flex-basis: 50%;
   display: flex;
-  justify-content: end;
-  align-items: center;
-  margin: 10px;
-  height: 70vh;
-  overflow: hidden;
   border-radius: 10px;
+  background-color: aqua;
+  overflow: hidden;
 }
 .figure-lost {
-  flex-basis: 50%;
-  margin: 10px;
+  background-color: bisque;
   display: flex;
-  height: 70vh;
-  overflow: hidden;
+  border-radius: 10px;
   justify-content: start;
-  align-items: center;
-
+  overflow: hidden;
+  align-items: center; 
+  @include media("max", "lg") {
+    min-width: 20%;
+  }
   &__black {
-    min-width: 125px;
-    max-width: 250px;
-    border-radius: 0 10px 10px 0;
     display: flex;
     justify-content: center;
   }
   &__white {
-    min-width: 125px;
-    max-width: 250px;
-    border-radius: 10px 0 0 10px;
     display: flex;
     justify-content: center;
   }

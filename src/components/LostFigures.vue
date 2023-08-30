@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Colors } from '@/models/Colors';
-import type { Player } from '@/models/Player';
 import type { Figure } from '@/models/figures/figure';
 
 interface LostFiguresProps {
@@ -23,17 +21,28 @@ const props = defineProps<LostFiguresProps>()
 </template>
 
 <style lang="scss" scoped> 
+@import '@/assets/styles';
+
 .lost {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
-  background-color: antiquewhite;
   height: 650px;
+  width: 125px;
   justify-content: start;
   align-items: center;
-  color: azure;
-  background-color: #043d5a;;
+  color: $color-white;
+  background-color: $color-blue;
+  @include media("max", "lg") {
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+  }
+  @include media("max", "sm") {
+    height: 50px;
+    font-size: 14px;
+  }
   & p {
     margin: 5px;
     &::first-letter {
@@ -48,11 +57,28 @@ const props = defineProps<LostFiguresProps>()
     align-items: center;
     & img {
       height: 30px;
+      @include media("max", "lg") {
+        height: 25px;
+      }
+      @include media("max", "sm") {
+        height: 20px;
+      }
+    }
+    @include media("max", "lg") {
+      flex-direction: column;
+      width: 40px;
+      font-size: 12px;
+      margin: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+    @include media("max", "sm") {
+      font-size: 8px;
+      width: 15px;
     }
   }
   &__target {
-    background-color: #1B1B1B;  
-    box-shadow: inset 0px 0px 20px 0px #2d9ad1;
+    @include player-selected
   }
 }
 </style>

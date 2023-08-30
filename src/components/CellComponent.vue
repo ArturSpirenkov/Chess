@@ -23,7 +23,6 @@ const axisNumbers = computed(() => {
 
 const axisLetters = computed(() => {
   return props.cell.y == 7 ? true : false
-  
 })
 
 const computedNumber = computed(() => {
@@ -59,6 +58,8 @@ const computedLetter = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/styles';
+
   .cell {
     height: 64px;
     width: 64px;
@@ -66,39 +67,55 @@ const computedLetter = computed(() => {
     justify-content: center;
     align-items: center;
     position: relative;
+    @include media("max", "sm") {
+      height: 42px;
+      width: 42px;
+    }
     & img {
       width: 48px;
       height: 48px;
       position: relative;
+      @include media("max", "sm") {
+        width: 30px;
+        height: 30px;
+      }
     }
     &__num {
       position: absolute;
       top: 3px;
       left: 3px;
+      @include media("max", "sm") {
+        right: 2px;
+        bottom: 2px;
+        font-size: 12px;
+      }
     }
     &__letter {
       position: absolute;
       right: 3px;
       bottom: 3px;
+      @include media("max", "sm") {
+        right: 2px;
+        bottom: 2px;
+        font-size: 12px;
+      }
     }
   }
   .white {
-    background-color: #91B7C5;
-    
-    color: #3D6977;
+    background-color: $cell-white;
+    color: $cell-black;
   }
   .black {
-    background-color: #3D6977;
-    color:  #91B7C5;
-    
+    background-color: $cell-black;
+    color: $cell-white;
   }
   .selected {
-    background-color: #78ADCE;
+    background-color: $selected-cell;
   }
   .available {
     height: 12px;
     width: 12px;
     border-radius: 50%;
-    background-color: #9d9f10;
+    background-color: $available-cell;
   }
 </style>
