@@ -1,6 +1,6 @@
-import { Cell } from "../Cell";
-import { Colors } from "../Colors";
-import logo from "@/assets/black-king.png"
+import { Cell } from '../Cell'
+import { Colors } from '../Colors'
+import logo from '@/assets/black-king.png'
 
 export enum FigureNames {
   FIGURE = '',
@@ -35,7 +35,7 @@ export class Figure {
     if (target.figure?.name === FigureNames.KING) {
       return false
     }
-    return true;
+    return true
   }
 
   moveFigure(target: Cell) {}

@@ -1,6 +1,6 @@
-import { Cell } from "../Cell";
-import { Colors } from "../Colors";
-import { Figure, FigureNames } from "./figure";
+import { Cell } from '../Cell'
+import { Colors } from '../Colors'
+import { Figure, FigureNames } from './figure'
 import blackLogo from '@/assets/black-bishop.png'
 import whiteLogo from '@/assets/white-bishop.png'
 

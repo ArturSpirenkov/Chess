@@ -3,7 +3,7 @@ import BoardComponent from './components/BoardComponent.vue'
 import { Board } from './models/Board'
 import { Player } from './models/Player'
 import { Colors } from './models/Colors'
-import { ref, onMounted}from 'vue'
+import { ref, onMounted } from 'vue'
 import LostFigures from './components/LostFigures.vue'
 import type { Figure } from './models/figures/figure'
 import PlayerBoard from './components/PlayerBoard.vue'
@@ -18,7 +18,7 @@ const restart = () => {
   newBoard.initCells()
   newBoard.addFigures()
   currentPlayer.value = whitePlayer.value
-  board.value = newBoard 
+  board.value = newBoard
 }
 
 const refreshBoard = (e: Board) => {
@@ -26,7 +26,7 @@ const refreshBoard = (e: Board) => {
 }
 
 const swapPlayer = (): void => {
-  currentPlayer.value = currentPlayer.value?.color === Colors.WHITE ? blackPlayer.value : whitePlayer.value 
+  currentPlayer.value = currentPlayer.value?.color === Colors.WHITE ? blackPlayer.value : whitePlayer.value
 }
 
 onMounted(() => {
@@ -36,46 +36,42 @@ onMounted(() => {
 
 <template>
   <div class="app">
-    <PlayerBoard
-      :restart="restart"
-      :current-player="currentPlayer"
-      class="players"
-    />
+    <PlayerBoard :restart="restart" :current-player="currentPlayer" class="players" />
     <div class="main-board">
       <BoardComponent
-      :board="(board as Board)"
-      @update-board="refreshBoard"
-      :currentPlayer="currentPlayer"
-      :swapPlayer="swapPlayer"
-    />
+        :board="board as Board"
+        @update-board="refreshBoard"
+        :currentPlayer="currentPlayer"
+        :swapPlayer="swapPlayer"
+      />
     </div>
-  <div class="figure-lost">
-    <LostFigures 
-      class="figure-lost__white"
-      :target="currentPlayer?.color === Colors.WHITE ? true : false"
-      :title="Colors.WHITE"
-      :figures="(board!.lostWhiteFigures as Figure[])"
-    />
-    <LostFigures
-      class="figure-lost__black"
-      :target="currentPlayer?.color === Colors.BLACK ? true : false"
-      :title="Colors.BLACK"
-      :figures="(board!.lostBlackFigures as Figure[])"
-    />
-  </div>
+    <div class="figure-lost">
+      <LostFigures
+        class="figure-lost__white"
+        :target="currentPlayer?.color === Colors.WHITE ? true : false"
+        :title="Colors.WHITE"
+        :figures="board!.lostWhiteFigures as Figure[]"
+      />
+      <LostFigures
+        class="figure-lost__black"
+        :target="currentPlayer?.color === Colors.BLACK ? true : false"
+        :title="Colors.BLACK"
+        :figures="board!.lostBlackFigures as Figure[]"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 @import '@/assets/styles';
 
-body{
-  background: rgba(189, 162, 124, 1.0);
-  background: linear-gradient(225deg, rgba(189, 162, 124, 1.0), rgba(26, 116, 173, 1.0));
+body {
+  background: rgba(189, 162, 124, 1);
+  background: linear-gradient(225deg, rgba(189, 162, 124, 1), rgba(26, 116, 173, 1));
 }
 .app {
   display: flex;
-  @include media("max", "lg") {
+  @include media('max', 'lg') {
     flex-direction: column;
   }
 }
@@ -97,8 +93,8 @@ body{
   border-radius: 10px;
   justify-content: start;
   overflow: hidden;
-  align-items: center; 
-  @include media("max", "lg") {
+  align-items: center;
+  @include media('max', 'lg') {
     min-width: 20%;
   }
   &__black {

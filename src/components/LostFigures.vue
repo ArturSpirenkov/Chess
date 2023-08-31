@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Figure } from '@/models/figures/figure';
+import type { Figure } from '@/models/figures/figure'
 
 interface LostFiguresProps {
   title: string
@@ -11,16 +11,16 @@ const props = defineProps<LostFiguresProps>()
 </script>
 
 <template>
-  <div :class="['lost', { 'lost__target': target}]">
+  <div :class="['lost', { lost__target: target }]">
     <p>{{ title }}</p>
-      <div v-for="figure in props.figures" :key="figure.id" class="lost__figure">
-        <p>{{ figure.name }} </p>
-        <img :src="figure.logo!"/> 
-      </div>
+    <div v-for="figure in props.figures" :key="figure.id" class="lost__figure">
+      <p>{{ figure.name }}</p>
+      <img :src="figure.logo!" />
+    </div>
   </div>
 </template>
 
-<style lang="scss" scoped> 
+<style lang="scss" scoped>
 @import '@/assets/styles';
 
 .lost {
@@ -32,14 +32,14 @@ const props = defineProps<LostFiguresProps>()
   align-items: center;
   color: $color-white;
   background-color: $color-blue;
-  @include media("max", "lg") {
+  @include media('max', 'lg') {
     flex-direction: row;
     width: 100%;
     height: 100px;
     justify-content: center;
     align-items: center;
   }
-  @include media("max", "sm") {
+  @include media('max', 'sm') {
     height: 50px;
     font-size: 14px;
   }
@@ -57,14 +57,14 @@ const props = defineProps<LostFiguresProps>()
     align-items: center;
     & img {
       height: 30px;
-      @include media("max", "lg") {
+      @include media('max', 'lg') {
         height: 25px;
       }
-      @include media("max", "sm") {
+      @include media('max', 'sm') {
         height: 20px;
       }
     }
-    @include media("max", "lg") {
+    @include media('max', 'lg') {
       flex-direction: column;
       width: 40px;
       font-size: 12px;
@@ -72,13 +72,13 @@ const props = defineProps<LostFiguresProps>()
       justify-content: center;
       align-items: center;
     }
-    @include media("max", "sm") {
+    @include media('max', 'sm') {
       font-size: 8px;
       width: 15px;
     }
   }
   &__target {
-    @include player-selected
+    @include player-selected;
   }
 }
 </style>

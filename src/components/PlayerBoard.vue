@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Player } from '@/models/Player';
-import { watch, computed } from 'vue';
-import usePlayersTimer from '../hooks/usePlayersTimer';
-import { Colors } from '@/models/Colors';
+import type { Player } from '@/models/Player'
+import { watch, computed } from 'vue'
+import usePlayersTimer from '../hooks/usePlayersTimer'
+import { Colors } from '@/models/Colors'
 
 interface PlayerBoardProps {
   currentPlayer: Player | null
@@ -13,9 +13,12 @@ const props = defineProps<PlayerBoardProps>()
 const player = computed((): Player | null => props.currentPlayer)
 const { startTimer, restartTimer, whiteTime, blackTime } = usePlayersTimer(player)
 
-watch(() => props.currentPlayer, () => {
-  startTimer()
-})
+watch(
+  () => props.currentPlayer,
+  () => {
+    startTimer()
+  }
+)
 
 const handleRestart = () => {
   restartTimer()
@@ -26,14 +29,26 @@ const handleRestart = () => {
 <template>
   <div>
     <div class="player-board">
-      <div :class="['player-board__black-player', 'black-player', { 'black-player_selected': currentPlayer?.color === Colors.BLACK }]">
-        <span class="black-player__time">{{ `${blackTime.min} : ${blackTime.sec}`}}</span>
+      <div
+        :class="[
+          'player-board__black-player',
+          'black-player',
+          { 'black-player_selected': currentPlayer?.color === Colors.BLACK },
+        ]"
+      >
+        <span class="black-player__time">{{ `${blackTime.min} : ${blackTime.sec}` }}</span>
       </div>
       <div class="restart-time" @click="handleRestart">
-        <button  class="restart-time__btn">Restart game</button>
+        <button class="restart-time__btn">Restart game</button>
       </div>
-      <div :class="['player-board__white-player', 'white-player', {'white-player_selected': currentPlayer?.color === Colors.WHITE}]">
-        <span class="white-player__time">{{ `${whiteTime.min} : ${whiteTime.sec}`}}</span>
+      <div
+        :class="[
+          'player-board__white-player',
+          'white-player',
+          { 'white-player_selected': currentPlayer?.color === Colors.WHITE },
+        ]"
+      >
+        <span class="white-player__time">{{ `${whiteTime.min} : ${whiteTime.sec}` }}</span>
       </div>
     </div>
   </div>
@@ -49,17 +64,17 @@ const handleRestart = () => {
   flex-direction: column;
   position: relative;
   font-size: 30px;
-  @include media("max", "lg") {
+  @include media('max', 'lg') {
     flex-direction: row;
     height: 100px;
     width: 537px;
   }
-  @include media("max", "sm") {
+  @include media('max', 'sm') {
     height: 50px;
     width: 360px;
     font-size: 20px;
   }
-  
+
   &__white-player {
     @include player;
   }
@@ -78,7 +93,7 @@ const handleRestart = () => {
   border-radius: 10px;
   box-shadow: 3px 3px 6px #7e8c93;
   cursor: pointer;
-  @include media("max", "sm") {
+  @include media('max', 'sm') {
     height: 35px;
     width: 35px;
     top: calc(50% - 17.5px);
@@ -95,7 +110,7 @@ const handleRestart = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    @include media("max", "sm") {
+    @include media('max', 'sm') {
       font-size: 8px;
     }
   }
@@ -104,14 +119,14 @@ const handleRestart = () => {
   &__time {
   }
   &_selected {
-    @include player-selected 
+    @include player-selected;
   }
 }
 .black-player {
   &__time {
   }
   &_selected {
-    @include player-selected 
+    @include player-selected;
   }
 }
 </style>
