@@ -32,8 +32,7 @@ const swapPlayer = (): void => {
 
 onMounted(() => {
   if (!window.localStorage.getItem('settings')) {
-    console.log(window.localStorage)
-    router.push('/settings')
+    router.push('/')
   } else {
     router.push('/main')
   }

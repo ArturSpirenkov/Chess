@@ -7,18 +7,12 @@ const history = createWebHistory()
 
 const routes = [
   {
-    path: '/',
-    redirect: {
-      name: 'settings',
-    },
-  },
-  {
     path: '/main',
     name: 'main',
     component: Home,
   },
   {
-    path: '/settings',
+    path: '/',
     name: 'settings',
     component: Settings,
   },
