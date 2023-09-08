@@ -9,26 +9,16 @@ html {
   padding: 0;
   margin: 0;
   width: 100%;
-  background-color: #1e1b26;
+  height: 100%;
   font-family: 'Nunito';
+  background: rgba(189, 162, 124, 1);
+  background: linear-gradient(225deg, rgba(189, 162, 124, 1), rgba(26, 116, 173, 1));
 }
 
-* {
+.app {
   &,
   &::before,
   &::after {
     box-sizing: border-box;
   }
-}
-
-.paragraph {
-  font-size: 14px;
-}
-
-.app {
-  font-family: 'Nunito';
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }

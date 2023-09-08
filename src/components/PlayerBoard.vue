@@ -8,10 +8,14 @@ interface PlayerBoardProps {
   currentPlayer: Player | null
   restart: () => void
 }
+function useLocalStorage<T>(key: string): T {
+  let data = window.localStorage.getItem(key)
+  return JSON.parse(data!)
+}
 
 const props = defineProps<PlayerBoardProps>()
 const player = computed((): Player | null => props.currentPlayer)
-const { startTimer, restartTimer, whiteTime, blackTime } = usePlayersTimer(player)
+const { startTimer, restartTimer, whiteTime, blackTime } = usePlayersTimer(player, useLocalStorage<number>('settings'))
 
 watch(
   () => props.currentPlayer,
