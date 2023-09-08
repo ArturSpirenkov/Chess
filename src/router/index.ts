@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     redirect: {
-      name: 'main',
+      name: 'settings',
     },
   },
   {
